@@ -14,6 +14,7 @@ const pkg = (() => {
 
 const config = defineConfig(({ mode }) => {
   return {
+    base: "dayjs_playground",
     plugins: [
       solidPlugin(),
     ],
