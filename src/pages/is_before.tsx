@@ -8,7 +8,6 @@ import dayjs from "dayjs";
 import { ViewComponentProps } from "@/store/types";
 import { useViewModel } from "@/hooks";
 import { PageView } from "@/components/page-view";
-import { ClockView } from "@/components/clock";
 
 import { base, Handler } from "@/domains/base";
 import { ButtonCore, DialogCore, ScrollViewCore } from "@/domains/ui";

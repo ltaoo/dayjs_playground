@@ -11,7 +11,6 @@ import { PageKeys } from "@/store/routes";
 import { useViewModel } from "@/hooks";
 import { Show } from "@/packages/ui/show";
 import { KeepAliveRouteView, Popover } from "@/components/ui";
-import { ClockView } from "@/components/clock";
 
 import { base, Handler } from "@/domains/base";
 import { ClockModel } from "@/biz/clock/clock";
