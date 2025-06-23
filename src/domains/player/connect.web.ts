@@ -146,6 +146,7 @@ export function connect($video: HTMLVideoElement, player: PlayerCore) {
         $video.load();
         return;
       }
+      // @ts-ignore
       const mod = await import("hls.js");
       const Hls2 = mod.default;
       if (Hls2.isSupported() && url.includes("m3u8")) {

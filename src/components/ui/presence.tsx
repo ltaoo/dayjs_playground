@@ -4,7 +4,6 @@
 import { JSX, Show, createSignal } from "solid-js";
 
 import { PresenceCore } from "@/domains/ui/presence";
-import { cn } from "@/utils/index";
 
 export const Presence = (props: { store: PresenceCore } & JSX.HTMLAttributes<HTMLElement>) => {
   const { store, onClick } = props;

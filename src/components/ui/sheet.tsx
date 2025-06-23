@@ -6,7 +6,6 @@ import { useViewModelStore } from "@/hooks";
 import { DialogCore } from "@/domains/ui/dialog";
 import * as DialogPrimitive from "@/packages/ui/dialog";
 import { Show } from "@/packages/ui/show";
-import { cn } from "@/utils/index";
 import { ViewComponentProps } from "@/store/types";
 
 const sheetVariants = cva("fixed z-50 scale-100 gap-4 bg-w-bg-2 text-w-fg-0 opacity-100", {

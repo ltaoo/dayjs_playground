@@ -2,11 +2,14 @@ import { JSX } from "solid-js/jsx-runtime";
 
 import { TreeCore } from "@/domains/ui/tree";
 import { Show, createSignal } from "solid-js";
-import { cn } from "@/utils";
 import { ArrowRight, ChevronRight } from "lucide-solid";
 
 const Root = (props: { store: TreeCore } & JSX.HTMLAttributes<HTMLDivElement>) => {
-  return <ul class={cn("ant-tree tree", props.class)}>{props.children}</ul>;
+  return (
+    <ul class={props.class} classList={{ ...props.classList, "ant-tree tree": true }}>
+      {props.children}
+    </ul>
+  );
 };
 const Leaf = (props: { store: TreeCore } & JSX.HTMLAttributes<HTMLDivElement>) => {
   const [dragOverCls, setDragOverCls] = createSignal("");
@@ -22,13 +25,23 @@ const Leaf = (props: { store: TreeCore } & JSX.HTMLAttributes<HTMLDivElement>) =
   //     dragOverCls = "drag-over-gap-bottom";
   //   }
 
-  return <li class={cn(dragOverCls(), props.class)}>{props.children}</li>;
+  return (
+    <li classList={{ [dragOverCls()]: true }} class={props.class}>
+      {props.children}
+    </li>
+  );
 };
 
 const Switcher = (props: { store: TreeCore } & JSX.HTMLAttributes<HTMLDivElement>) => {
   const { store } = props;
   return (
-    <span class={cn("tree__switcher inline-flex items-center", props.class)} onClick={() => {}}>
+    <span
+      class={props.class}
+      classList={{
+        "tree__switcher inline-flex items-center": true,
+      }}
+      onClick={() => {}}
+    >
       {props.children}
     </span>
   );
@@ -73,7 +86,11 @@ const Arrow = (props: {} & JSX.HTMLAttributes<HTMLDivElement>) => {
 };
 
 const Sub = (props: { store: TreeCore } & JSX.HTMLAttributes<HTMLDivElement>) => {
-  return <ul class={cn("tree__sub-tree", props.class)}>{props.children}</ul>;
+  return (
+    <ul class={props.class} classList={{ "tree__sub-tree": true }}>
+      {props.children}
+    </ul>
+  );
 };
 
 export { Root, Leaf, Handler, Switcher, Content, Arrow, Sub };

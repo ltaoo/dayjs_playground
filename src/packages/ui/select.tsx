@@ -8,7 +8,6 @@ import { SelectContentCore } from "@/domains/ui/select/content";
 import { SelectTriggerCore } from "@/domains/ui/select/trigger";
 import { SelectValueCore } from "@/domains/ui/select/value";
 import { SelectWrapCore } from "@/domains/ui/select/wrap";
-import { cn } from "@/utils";
 
 import * as Collection from "./collection";
 import * as PopperPrimitive from "./popper";
@@ -280,7 +279,7 @@ const ItemAlignedPosition = (
       ref={(ref) => {
         $wrap = ref;
       }}
-      class={cn("select__content-wrap")}
+      class="select__content-wrap"
       style={{
         display: "flex",
         "flex-direction": "column",
@@ -299,7 +298,10 @@ const ItemAlignedPosition = (
           props.ref = el;
         }}
         role={props.role}
-        class={cn("select__content", props.class)}
+        class={props.class}
+        classList={{
+          select__content: true,
+        }}
         style={{
           // When we get the height of the content, it includes borders. If we were to set
           // the height without having `boxSizing: 'border-box'` it would be too big.

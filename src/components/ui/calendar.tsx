@@ -2,19 +2,22 @@ import { createSignal, For, JSX } from "solid-js";
 import { ChevronLeft, ChevronRight } from "lucide-solid";
 
 import { CalendarModel } from "@/domains/ui/calendar";
-import { cn } from "@/utils";
 
-export function Calendar(props: { store: CalendarCore } & JSX.HTMLAttributes<HTMLDivElement>) {
+export function Calendar(props: { store: CalendarModel } & JSX.HTMLAttributes<HTMLDivElement>) {
   const { store } = props;
   const [state, setState] = createSignal(store.state);
 
-  store.onChange((v) => {
-    console.log("hange", v.year.text, v.month.text);
+  store.onStateChange((v) => {
     setState(v);
   });
 
   return (
-    <div class={cn("calendar rdp p-3 rounded-md border shadow", props.class)}>
+    <div
+      class={props.class}
+      classList={{
+        "calendar rdp p-3 rounded-md border shadow": true,
+      }}
+    >
       <div class="flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0">
         <div class="space-y-4 rdp-caption_start rdp-caption_end">
           <div class="calendar__head flex justify-center pt-1 relative items-center">
@@ -65,10 +68,11 @@ export function Calendar(props: { store: CalendarCore } & JSX.HTMLAttributes<HTM
                         {(date) => {
                           return (
                             <td
-                              class={cn(
-                                "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected])]:rounded-md",
-                                state().day.time === date.time ? "text-green-500" : ""
-                              )}
+                              classList={{
+                                "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected])]:rounded-md":
+                                  true,
+                                "text-green-500": state().day.time === date.time,
+                              }}
                               onClick={() => {
                                 store.selectDay(date.value);
                               }}
