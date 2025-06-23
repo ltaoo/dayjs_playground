@@ -16,6 +16,7 @@ import { connect as connectHistory } from "@/domains/history/connect.web";
 import { onCreateScrollView } from "@/domains/ui/scroll-view";
 import { onRequestCreated, RequestCore } from "@/domains/request/index";
 import { Result } from "@/domains/result/index";
+import { ClockModel } from "@/biz/clock/clock";
 import { query_stringify } from "@/utils";
 
 import { PageKeys, routes, routesWithPathname } from "./routes";
@@ -117,6 +118,9 @@ export const app = new Application({
     history.push("root.home_layout.index");
     return Result.Ok(null);
   },
+});
+export const $time = ClockModel({
+  time: new Date().valueOf(),
 });
 
 app.setEnv({

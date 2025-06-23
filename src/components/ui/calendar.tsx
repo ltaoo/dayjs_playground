@@ -1,7 +1,7 @@
 import { createSignal, For, JSX } from "solid-js";
 import { ChevronLeft, ChevronRight } from "lucide-solid";
 
-import { CalendarCore } from "@/domains/ui/calendar";
+import { CalendarModel } from "@/domains/ui/calendar";
 import { cn } from "@/utils";
 
 export function Calendar(props: { store: CalendarCore } & JSX.HTMLAttributes<HTMLDivElement>) {

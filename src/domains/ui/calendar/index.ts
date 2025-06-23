@@ -21,8 +21,13 @@ type CalendarCoreProps = {
   today: Date;
 };
 
-export function CalendarCore(props: CalendarCoreProps) {
-  const { today } = props;
+export function CalendarModel(props: CalendarCoreProps) {
+  // const { today } = props;
+  const methods = {
+    refresh() {
+      bus.emit(Events.StateChange, { ..._state });
+    },
+  };
 
   function buildMonthText(d: Date) {
     //     const year = d.getFullYear();
@@ -76,37 +81,48 @@ export function CalendarCore(props: CalendarCoreProps) {
     }
   }
 
-  today.setHours(0);
-  today.setMinutes(0);
-  today.setSeconds(0);
-  today.setMilliseconds(0);
+  let _today = props.today;
 
-  let _day = {
-    text: today.getDate().toString(),
-    value: today,
-    time: today.valueOf(),
-  };
-  let _month = {
-    /** 12月 */
-    text: buildMonthText(today),
-    value: today,
-    time: today.valueOf(),
-  };
-  let _year = {
-    // 2024
-    text: today.getFullYear(),
-    value: today,
-    time: today.valueOf(),
-  };
-  let _selectedDay = {
-    text: today.toLocaleDateString() + today.toLocaleTimeString(),
-    value: today,
-    time: today.valueOf(),
-  };
+  function refreshToday() {
+    _today.setHours(0);
+    _today.setMinutes(0);
+    _today.setSeconds(0);
+    _today.setMilliseconds(0);
+
+    return {
+      day: {
+        text: _today.getDate().toString(),
+        value: _today,
+        time: _today.valueOf(),
+      },
+      month: {
+        /** 12月 */
+        text: buildMonthText(_today),
+        value: _today,
+        time: _today.valueOf(),
+      },
+      year: {
+        // 2024
+        text: _today.getFullYear(),
+        value: _today,
+        time: _today.valueOf(),
+      },
+      selected: {
+        text: _today.toLocaleDateString() + _today.toLocaleTimeString(),
+        value: _today,
+        time: _today.valueOf(),
+      },
+    };
+  }
+
+  const { day, month, year, selected } = refreshToday();
+  let _day = day;
+  let _month = month;
+  let _year = year;
+  let _selectedDay = selected;
   let _weeks: CalendarWeek[] = [];
   let _weekdays: CalendarWeek["dates"] = [];
-
-  refreshWeeksOfMonth(today);
+  refreshWeeksOfMonth(_today);
 
   let _state = {
     get day() {
@@ -131,11 +147,11 @@ export function CalendarCore(props: CalendarCoreProps) {
 
   enum Events {
     SelectDay,
-    Change,
+    StateChange,
   }
   type TheTypesOfEvents = {
     [Events.SelectDay]: Date;
-    [Events.Change]: typeof _state;
+    [Events.StateChange]: typeof _state;
   };
   const bus = base<TheTypesOfEvents>();
 
@@ -184,18 +200,28 @@ export function CalendarCore(props: CalendarCoreProps) {
         value: day,
         time: day.valueOf(),
       };
-      bus.emit(Events.Change, { ..._state });
+      bus.emit(Events.StateChange, { ..._state });
     },
     nextMonth() {},
     prevMonth() {},
+    setToday(v: Date) {
+      _today = v;
+      const { day, month, year, selected } = refreshToday();
+      _day = day;
+      _month = month;
+      _year = year;
+      _selectedDay = selected;
+      refreshWeeksOfMonth(_today);
+      methods.refresh();
+    },
     buildMonthText,
     onSelectDay(handler: Handler<TheTypesOfEvents[Events.SelectDay]>) {
       return bus.on(Events.SelectDay, handler);
     },
-    onChange(handler: Handler<TheTypesOfEvents[Events.Change]>) {
-      return bus.on(Events.Change, handler);
+    onStateChange(handler: Handler<TheTypesOfEvents[Events.StateChange]>) {
+      return bus.on(Events.StateChange, handler);
     },
   };
 }
 
-export type CalendarCore = ReturnType<typeof CalendarCore>;
+export type CalendarModel = ReturnType<typeof CalendarModel>;

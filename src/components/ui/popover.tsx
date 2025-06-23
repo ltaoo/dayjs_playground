@@ -57,21 +57,21 @@ export function Popover(props: { store: PopoverCore } & JSX.HTMLAttributes<HTMLE
             }}
           >
             <div
-              class="__a relative p-4 text-w-fg-0"
+              class="__a relative text-w-fg-0"
               onAnimationStart={(event) => {
                 const floating = event.currentTarget.getBoundingClientRect();
                 vm.popper.place2(floating);
               }}
             >
               {props.children}
-              <div
+              {/* <div
                 class="absolute top-2 right-2 inline-flex items-center justify-center rounded-full h-6 w-6 text-w-fg-1 font-inherit"
                 onClick={() => {
                   vm.hide();
                 }}
               >
                 <X class="w-4 h-4" />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

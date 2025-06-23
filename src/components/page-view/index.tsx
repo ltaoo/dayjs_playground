@@ -32,13 +32,13 @@ export function PageView<
             }}
           >
             {props.children}
-            <Show when={!props.no_extra_bottom}>
+            {/* <Show when={!props.no_extra_bottom}>
               <div class="h-[68px]"></div>
-            </Show>
+            </Show> */}
           </div>
         </ScrollView>
       </div>
-      <Show when={!props.hide_bottom_bar}>
+      {/* <Show when={!props.hide_bottom_bar}>
         <div class="">
           <div class="h-[58px]"></div>
           <div class="z-[10] fixed bottom-0 left-0 w-full">
@@ -50,7 +50,7 @@ export function PageView<
             />
           </div>
         </div>
-      </Show>
+      </Show> */}
     </div>
   );
 }

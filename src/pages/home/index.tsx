@@ -5,18 +5,16 @@ import { For, Show } from "solid-js";
 import { BicepsFlexed, Check, Coffee } from "lucide-solid";
 import dayjs from "dayjs";
 
-import { ViewComponentProps } from "@/store/types";
+import { PageKeys, ViewComponentProps } from "@/store/types";
 import { useViewModel } from "@/hooks";
+import { PageView } from "@/components/page-view";
 
 import { base, Handler } from "@/domains/base";
 import { ButtonCore, DialogCore, ScrollViewCore } from "@/domains/ui";
-import { CalendarCore } from "@/domains/ui/calendar";
+import { CalendarModel } from "@/domains/ui/calendar";
 import { ListCore } from "@/domains/list";
 import { TabHeaderCore } from "@/domains/ui/tab-header";
 import { Result } from "@/domains/result";
-import { TheItemTypeFromListCore } from "@/domains/list/typing";
-
-const WeekdayChineseTextArr = ["一", "二", "三", "四", "五", "六", "日"];
 
 function HomeIndexPageViewModel(props: ViewComponentProps) {
   const request = {};
@@ -24,38 +22,27 @@ function HomeIndexPageViewModel(props: ViewComponentProps) {
     refresh() {
       bus.emit(Events.StateChange, { ..._state });
     },
+    back() {
+      props.history.back();
+    },
   };
   const ui = {
     $view: new ScrollViewCore({}),
-    $tab: new TabHeaderCore({
-      options: [
-        {
-          id: 1,
-          text: "推荐",
-        },
-        {
-          id: 2,
-          text: "HIIT",
-        },
-        {
-          id: 3,
-          text: "五分化",
-        },
-      ] as { id: number; text: string }[],
-      // onMounted() {
-      //   ui.$tab.selectById(1);
-      // },
-      onChange(value) {
-        // props.history.push(value.id);
-        methods.refresh();
-      },
-    }),
-    $calendar: CalendarCore({
+    $history: props.history,
+    $calendar: CalendarModel({
       today: new Date(),
     }),
   };
-
-  const _state = {};
+  const _state = {
+    get functions(): { text: string; url: PageKeys }[] {
+      return [
+        {
+          text: "StartOf",
+          url: "root.home_layout.start_of",
+        },
+      ];
+    },
+  };
   enum Events {
     StateChange,
   }
@@ -81,5 +68,13 @@ function HomeIndexPageViewModel(props: ViewComponentProps) {
 export const HomeIndexPage = (props: ViewComponentProps) => {
   const [state, vm] = useViewModel(HomeIndexPageViewModel, [props]);
 
-  return <></>;
+  return (
+    <>
+      <PageView store={vm}>
+        <div class="p-4">
+          <div class="text-6xl text-w-fg-0">dayjs Playground</div>
+        </div>
+      </PageView>
+    </>
+  );
 };

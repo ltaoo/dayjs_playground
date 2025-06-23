@@ -1,5 +1,5 @@
 import { base, Handler } from "@/domains/base";
-import { CalendarCore } from "@/domains/ui/calendar";
+import { CalendarModel } from "@/domains/ui/calendar";
 import { PopoverCore } from "@/domains/ui/popover";
 import { ButtonCore } from "@/domains/ui/button";
 import dayjs from "dayjs";
@@ -10,11 +10,11 @@ export function DatePickerCore(props: { today: Date }) {
   const $popover = new PopoverCore({
     strategy: "fixed",
   });
-  const $calendar = CalendarCore({
+  const $calendar = CalendarModel({
     today,
   });
   const $btn = new ButtonCore({});
-  $calendar.onChange(() => {
+  $calendar.onStateChange(() => {
     bus.emit(Events.Change, _state.value);
   });
 

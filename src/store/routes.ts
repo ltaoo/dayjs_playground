@@ -22,6 +22,55 @@ const configure = {
               require: [],
             },
           },
+          start_of: {
+            title: "startOf 函数",
+            pathname: "/start_of",
+            options: {
+              require: [],
+            },
+          },
+          end_of: {
+            title: "endOf 函数",
+            pathname: "/end_of",
+            options: {
+              require: [],
+            },
+          },
+          format: {
+            title: "format 函数",
+            pathname: "/format",
+            options: {
+              require: [],
+            },
+          },
+          add: {
+            title: "add 函数",
+            pathname: "/add",
+            options: {
+              require: [],
+            },
+          },
+          subtract: {
+            title: "subtract 函数",
+            pathname: "/subtract",
+            options: {
+              require: [],
+            },
+          },
+          set: {
+            title: "set 函数",
+            pathname: "/set",
+            options: {
+              require: [],
+            },
+          },
+          is_before: {
+            title: "isBefore 函数",
+            pathname: "/is_before",
+            options: {
+              require: [],
+            },
+          },
         },
       },
       notfound: {

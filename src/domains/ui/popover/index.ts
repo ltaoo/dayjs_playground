@@ -33,6 +33,7 @@ type PopoverProps = {
   side?: Side;
   align?: Align;
   strategy?: "fixed" | "absolute";
+  onCancel?: () => void;
 };
 
 export class PopoverCore extends BaseDomain<TheTypesOfEvents> {
