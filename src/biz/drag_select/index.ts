@@ -66,7 +66,7 @@ export function DragSelectViewModel<T extends DragSelectOpt>(props: DragInputVie
       }
       // 取消之前的动画帧
       if (_scroll_animation_frame) {
-        clearTimeout(_scroll_animation_frame);
+        clearTimeout(_scroll_animation_frame as NodeJS.Timeout);
       }
       // 设置新的动画帧
       _scroll_animation_frame = setTimeout(() => {

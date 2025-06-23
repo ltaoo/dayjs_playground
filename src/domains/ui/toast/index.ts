@@ -111,7 +111,7 @@ export class ToastCore extends BaseDomain<TheTypesOfEvents> {
     if (this.timer === null) {
       return;
     }
-    clearTimeout(this.timer);
+    clearTimeout(this.timer as NodeJS.Timeout);
     this.timer = null;
   }
   /** 隐藏弹窗 */

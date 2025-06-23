@@ -6,7 +6,7 @@ export const DismissableLayer = (props: { store: DismissableLayerCore; asChild?:
   const { store } = props;
 
   let $node: HTMLDivElement | undefined = undefined;
-  let timerId: number | null = null;
+  let timerId: NodeJS.Timeout | null = null;
 
   const node = {};
   const ownerDocument = globalThis?.document;
@@ -28,7 +28,7 @@ export const DismissableLayer = (props: { store: DismissableLayerCore; asChild?:
   };
   onMount(() => {
     store.layers.add(node);
-    timerId = window.setTimeout(() => {
+    timerId = setTimeout(() => {
       ownerDocument.addEventListener("pointerdown", handlePointerDown);
     }, 0);
     // app.disablePointer();
@@ -43,7 +43,7 @@ export const DismissableLayer = (props: { store: DismissableLayerCore; asChild?:
     store.layers.delete(node);
     store.layersWithOutsidePointerEventsDisabled.delete(node);
     if (timerId !== null) {
-      window.clearTimeout(timerId);
+      clearTimeout(timerId as NodeJS.Timeout);
     }
     ownerDocument.removeEventListener("pointerdown", handlePointerDown);
     ownerDocument.removeEventListener("click", store.handlePointerDownOnTop);

@@ -192,7 +192,7 @@ export class MenuCore extends BaseDomain<TheTypesOfEvents> {
         item.menu.onEnter(() => {
           console.log("[DOMAIN]ui/menu/index - item.menu.onEnter");
           if (timer) {
-            clearTimeout(timer);
+            clearTimeout(timer as NodeJS.Timeout);
           }
         });
         return;

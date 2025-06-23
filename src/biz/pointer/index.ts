@@ -96,7 +96,7 @@ export function CanvasPointer(props: {}) {
       //   _timer_is_click = null;
       // }, 300);
       if (_maybe_click_timer) {
-        clearTimeout(_maybe_click_timer);
+        clearTimeout(_maybe_click_timer as NodeJS.Timeout);
         _maybe_click_timer = null;
       }
       // _timer2 = setTimeout(() => {
